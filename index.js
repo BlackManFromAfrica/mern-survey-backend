@@ -9,7 +9,7 @@ import handleValidationErrors from './utils/handleValidationErrors.js'
 import cors from "cors"
 
 mongoose.connect(
- 'mongodb+srv://admin:admin@cluster0.u7umau7.mongodb.net/?retryWrites=true&w=majority'
+ process.env.MONGODB_URI
 ).then(() => console.log("DB Ok")).catch((err) => console.log("db error", err))
 
 const app = express();
@@ -27,7 +27,7 @@ app.delete('/polls/:id', checkAuth, PollController.remove)
 app.patch('/polls/:id', checkAuth, PollController.update)
 
 
-app.listen(3000 , (err) => {
+app.listen(process.env.PORT || 3000 , (err) => {
   if (err) {
     return console.log(err)
   }
